@@ -1,0 +1,19 @@
+use springdemo;
+
+CREATE TABLE `user` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `create_time` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `email` varchar(255) DEFAULT NULL,
+  `event_time` bigint(20) DEFAULT NULL,
+  `idcard` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `update_time`  timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+PARTITION BY RANGE (id) PARTITIONS 4 (
+PARTITION part0 VALUES LESS THAN (5),
+PARTITION part1 VALUES LESS THAN (10),
+PARTITION part2 VALUES LESS THAN (15),
+PARTITION partm VALUES LESS THAN MAXVALUE);
+
+
