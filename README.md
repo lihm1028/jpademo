@@ -27,22 +27,22 @@ CREATE TABLE `user` (
   `update_time` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
-PARTITION BY RANGE (id) PARTITIONS 3 (
+PARTITION BY RANGE (id) PARTITIONS 4 (
 PARTITION part0 VALUES LESS THAN (5), 
 PARTITION part1 VALUES LESS THAN (10), 
-PARTITION part1 VALUES LESS THAN (15), 
-PARTITION part2 VALUES LESS THAN MAXVALUE);
+PARTITION part2 VALUES LESS THAN (15), 
+PARTITION partm VALUES LESS THAN MAXVALUE);
 
 
 ## 插入数据测试
 ```
-insert into `user`(`name`,email,event_time,update_time) values('lihm1','lihm1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
-insert into `user`(`name`,email,event_time,update_time) values('lihm2','lihm1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
-insert into `user`(`name`,email,event_time,update_time) values('lihm3','lihm1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
-insert into `user`(`name`,email,event_time,update_time) values('lihm4','lihm1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
-insert into `user`(`name`,email,event_time,update_time) values('lihm5','lihm1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
-insert into `user`(`name`,email,event_time,update_time) values('lihm6','lihm1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
-insert into `user`(`name`,email,event_time,update_time) values('lihm7','lihm1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
+insert into `user`(`name`,email,event_time,update_time) values('test1','test1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
+insert into `user`(`name`,email,event_time,update_time) values('test2','test1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
+insert into `user`(`name`,email,event_time,update_time) values('test3','test1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
+insert into `user`(`name`,email,event_time,update_time) values('test4','test1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
+insert into `user`(`name`,email,event_time,update_time) values('test5','test1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
+insert into `user`(`name`,email,event_time,update_time) values('test6','test1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
+insert into `user`(`name`,email,event_time,update_time) values('test7','test1@qq.com',REPLACE(unix_timestamp(current_timestamp(3)),'.',''),now());
 ```
 
 ## 2.查看分区
