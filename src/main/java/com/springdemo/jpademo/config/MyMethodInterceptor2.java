@@ -9,13 +9,13 @@ import org.aopalliance.intercept.MethodInvocation;
  * @date 2023/8/7
  */
 @Slf4j
-public class MyMethodInterceptor implements MethodInterceptor {
+public class MyMethodInterceptor2 implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-//        System.out.println(invocation.getMethod().getName());
-        log.info("MyMethodInterceptor："+invocation.getMethod().getName());
-        log.info("MyMethodInterceptor： "+invocation.getMethod().isVarArgs());
+        System.out.println(invocation.getMethod().getName());
+        log.info("MyMethodInterceptor2："+invocation.getMethod().getName());
+        log.info("MyMethodInterceptor2："+invocation.getMethod().isVarArgs());
         return invocation.proceed();
     }
 }

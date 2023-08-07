@@ -1,5 +1,6 @@
 package com.springdemo.jpademo.support;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
@@ -10,6 +11,7 @@ import java.sql.PreparedStatement;
  * @author li.hongming
  * @date 2023/8/7
  */
+@Slf4j
 public class SqlExecutionInterceptor implements MethodInterceptor {
 
     @Override
@@ -21,6 +23,7 @@ public class SqlExecutionInterceptor implements MethodInterceptor {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             System.out.println(sql); // 在日志中打印SQL语句
+            log.info(sql);
         }
         result = invocation.proceed();
         return result;

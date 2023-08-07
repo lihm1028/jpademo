@@ -1,7 +1,7 @@
 package com.springdemo.jpademo.config;
 
 import com.springdemo.jpademo.config.annotation.MyMethodAnnotation;
-import org.aspectj.weaver.patterns.AnnotationPointcut;
+import com.springdemo.jpademo.support.SqlExecutionInterceptor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
@@ -55,27 +55,13 @@ public class InterceptorConfig {
      * 案例三： 注解方式构造切入点
      * @return
      */
-//    @Bean
-//    public DefaultPointcutAdvisor defaultPointcutAdvisor(){
-////        String traceExecution="execution(* com.springdemo.jpademo.*.*(..))";
-//        String traceExecution = "@annotation(com.springdemo.jpademo.config.annotation.MyMethodAnnotation)";
-//
-//        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-//        pointcut.setExpression(traceExecution);
-//        // 配置增强类advisor
-//        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
-//        advisor.setPointcut(pointcut);
-//        advisor.setAdvice(new MyMethodInterceptor());
-//        return advisor;
-//    }
-
-
     @Bean
     public DefaultPointcutAdvisor defaultPointcutAdvisor(){
-        // 注解方式
-       // AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(MyMethodAnnotation.class, true);
+//        String traceExecution="execution(* com.springdemo.jpademo.*.*(..))";
+        String traceExecution = "@annotation(com.springdemo.jpademo.config.annotation.MyMethodAnnotation)";
 
-        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null,MyMethodAnnotation.class);
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression(traceExecution);
         // 配置增强类advisor
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
         advisor.setPointcut(pointcut);
@@ -84,5 +70,37 @@ public class InterceptorConfig {
     }
 
 
+    /**
+     * 注解方式拦截方法
+     * @return
+     */
+    @Bean
+    public DefaultPointcutAdvisor defaultPointcutAdvisor2(){
+        // 注解方式
+       // AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(MyMethodAnnotation.class, true);
+
+        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null,MyMethodAnnotation.class);
+        // 配置增强类advisor
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+        advisor.setPointcut(pointcut);
+        advisor.setAdvice(new MyMethodInterceptor2());
+        return advisor;
+    }
+
+
+    /**
+     * 拦截sql
+     * @return
+     */
+    @Bean
+    public DefaultPointcutAdvisor sqlExecutionInterceptorAdvisor(){
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression("execution(* java.sql.PreparedStatement.execute(..))");
+//        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut,new SqlExecutionInterceptor());
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+        advisor.setPointcut(pointcut);
+        advisor.setAdvice(new SqlExecutionInterceptor());
+        return advisor;
+    }
 
 }
