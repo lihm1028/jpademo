@@ -1,5 +1,4 @@
-# jpademo
-
+# jpademo & AOP
 
 # mysql 分区
    mysql分区相对于mysql分库分表便利很多,可以对现有的mysql大表添加分区,也可以对已有分区的表扩充分区
