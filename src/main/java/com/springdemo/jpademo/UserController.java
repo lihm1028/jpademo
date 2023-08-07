@@ -1,5 +1,6 @@
 package com.springdemo.jpademo;
 
+import com.springdemo.jpademo.config.annotation.MyMethodAnnotation;
 import com.springdemo.jpademo.model.User;
 import com.springdemo.jpademo.repository.UserRepository;
 import org.hibernate.annotations.Where;
@@ -56,6 +57,7 @@ public class UserController {
 
     @GetMapping("/get/{id}")
     @ResponseBody
+    @MyMethodAnnotation
     public User getId(@PathVariable Long id) {
         return userRepository.findById(id).orElse(null);
     }

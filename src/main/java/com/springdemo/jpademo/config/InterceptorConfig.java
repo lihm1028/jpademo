@@ -1,9 +1,10 @@
 package com.springdemo.jpademo.config;
 
+import com.springdemo.jpademo.config.annotation.MyMethodAnnotation;
+import org.aspectj.weaver.patterns.AnnotationPointcut;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
-import org.springframework.aop.aspectj.AspectJPointcutAdvisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
-import org.springframework.aop.support.JdkRegexpMethodPointcut;
+import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,16 +38,51 @@ public class InterceptorConfig {
      * 案例二：AspectJExpressionPointcut 构造切入点
      * @return
      */
+//    @Bean
+//    public DefaultPointcutAdvisor defaultPointcutAdvisor(){
+//          String traceExecution="execution(* com.springdemo.jpademo.*.*(..))";
+//        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+//        pointcut.setExpression(traceExecution);
+//        // 配置增强类advisor
+//        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+//        advisor.setPointcut(pointcut);
+//        advisor.setAdvice(new MyMethodInterceptor());
+//        return advisor;
+//    }
+
+
+    /**
+     * 案例三： 注解方式构造切入点
+     * @return
+     */
+//    @Bean
+//    public DefaultPointcutAdvisor defaultPointcutAdvisor(){
+////        String traceExecution="execution(* com.springdemo.jpademo.*.*(..))";
+//        String traceExecution = "@annotation(com.springdemo.jpademo.config.annotation.MyMethodAnnotation)";
+//
+//        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+//        pointcut.setExpression(traceExecution);
+//        // 配置增强类advisor
+//        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+//        advisor.setPointcut(pointcut);
+//        advisor.setAdvice(new MyMethodInterceptor());
+//        return advisor;
+//    }
+
+
     @Bean
     public DefaultPointcutAdvisor defaultPointcutAdvisor(){
-          String traceExecution="execution(* com.springdemo.jpademo.*.*(..))";
-        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression(traceExecution);
+        // 注解方式
+       // AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(MyMethodAnnotation.class, true);
+
+        AnnotationMatchingPointcut pointcut = new AnnotationMatchingPointcut(null,MyMethodAnnotation.class);
         // 配置增强类advisor
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
         advisor.setPointcut(pointcut);
         advisor.setAdvice(new MyMethodInterceptor());
         return advisor;
     }
+
+
 
 }
