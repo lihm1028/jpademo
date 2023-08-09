@@ -17,7 +17,7 @@ public class User {
     private long id;
 
     @CreatedDate
-    private Date createTime;
+    private Date createTime=new Date();
 
     private Long eventTime = System.currentTimeMillis();
 
