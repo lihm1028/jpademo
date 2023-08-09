@@ -18,7 +18,7 @@ public class UserController {
 
 
     /**
-     * curl -XPOST -H'content-type:application/json;charset=utf-8' 'http://localhost:8081/user/add' -d '{"name":"lihm01","email":"lihm01@qq.com"}'
+     * curl -XPOST -H'content-type:application/json;charset=utf-8' 'http://localhost:8081/user/add' -d '{"username":"lihm01","sex":1,"password":"1","remark":"备注1"}'
      *
      * @param form
      * @return
@@ -27,8 +27,9 @@ public class UserController {
     public @ResponseBody
     User addUser(@RequestBody User form) {
         User n = new User();
-        n.setName(form.getName());
-        n.setEmail(form.getEmail());
+        n.setUsername(form.getUsername());
+        n.setSex(form.getSex());
+        n.setPassword(form.getPassword());
         n.setIdcard(form.getIdcard());
         n.setEventTime(System.currentTimeMillis());
         User save = userRepository.save(n);
@@ -36,12 +37,18 @@ public class UserController {
     }
 
 
+    /**
+     * curl -XPOST -H'content-type:application/json;charset=utf-8' 'http://localhost:8081/user/add' -d '{"username":"lihm01","sex":1,"password":"1","remark":"备注1"}'
+     * @param form
+     * @return
+     */
     @PostMapping("/update")
     public @ResponseBody
     User updateUser(@RequestBody User form) {
         User n = userRepository.findById(form.getId()).orElse(null);
-        n.setName(form.getName());
-        n.setEmail(form.getEmail());
+        n.setUsername(form.getUsername());
+        n.setPassword(form.getPassword());
+        n.setSex(form.getSex());
         n.setIdcard(form.getIdcard());
         n.setEventTime(System.currentTimeMillis());
         User save = userRepository.save(n);

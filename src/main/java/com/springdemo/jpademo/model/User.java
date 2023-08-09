@@ -9,6 +9,7 @@ import java.util.Date;
 @Entity
 @Data
 //@Where(clause = " create_time>'2021-01-01' ")
+@Table(name = "t_user")
 public class User {
 
     @Id
@@ -20,14 +21,17 @@ public class User {
 
     private Long eventTime = System.currentTimeMillis();
 
-    private String name;
+    private String username;
 
-    private String email;
+    private String password;
 
     private String idcard;
 
-
     private Integer age;
+
+    private Integer sex;
+
+    private String remark;
 
     private Date updateTime = new Date();
 
